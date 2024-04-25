@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phone Back Cover Customization</title>
+<br>
+<h2>
+<style>
+    /* Define font styles */
+    .font1 {
+        font-family: Arial, sans-serif;
+    }
+
+    .font2 {
+        font-family: Times New Roman, serif;
+    }
+
+    .font3 {
+        font-family: Courier New, monospace;
+    }
+    .font4 {
+        font-family: Georgia, 'Times New Roman', Times, serif New, monospace;
+    }
+
+    /* Additional styles for better appearance */
+    body {
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+    }
+    select {
+        padding: 5px;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    #phone-back-cover {
+        width: 200px;
+        height: 400px;
+        background-color: #f4f0f0;
+        border: 2px solid #000000;
+        border-radius: 10px;
+        margin-top: 20px;
+        position:absolute;
+        right: 300px;
+        top: 25%;
+        transform: translate(-50%);
+
+        
+    }
+    #custom-text {
+        position: absolute;
+        bottom: 100px;
+        left: 30px;
+        font-size: 25px;
+    }
+</style>
+</h2>
+</head>
+<body>
+
+<h3>Customize Your Phone Back Cover</h3>
+<h2>
+<style>
+  h3{font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 30px;
+  color: rgb(52, 107, 226);
+        text-align: center;
+        text-decoration: underline;
+        letter-spacing: 5px;
+        word-spacing: -1px;
+        text-shadow: 2px 2px 4px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+</style>
+</h2>
+<h2>
+<form id="phone-customization-form">
+  <h2><label for="cover-color">Select Cover Color:</label> </h2>
+  <h2><input type="color" id="cover-color" name="cover-color"></h2>
+  
+
+  <input type="text" id="custom-text" name="custom-text" placeholder="Enter custom text...">
+ <h2> <label for="font-style">Select Font Style:</label> </h2>
+  <h2><select id="font-style">
+    <option value="Arial">Arial</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Georgia">Georgia</option>
+  </select>
+</h2>
+</form>
+<script>
+  // Function to update back cover preview
+  function updateBackCover() {
+    const backCover = document.getElementById("phone-back-cover");
+    const coverColor = document.getElementById("cover-color").value;
+    const customText = document.getElementById("custom-text").value;
+    const fontStyle = document.getElementById("font-style").value;
+
+    // Update back cover styles
+    backCover.style.backgroundColor = coverColor;
+    backCover.style.fontFamily = fontStyle;
+    backCover.querySelector("#custom-text").textContent = customText;
+  }
+
+  // Event listeners for form elements
+  document.getElementById("cover-color").addEventListener("input", updateBackCover);
+  document.getElementById("custom-text").addEventListener("input", updateBackCover);
+  document.getElementById("font-style").addEventListener("change", updateBackCover);
+
+  // Initial update of back cover
+  updateBackCover();
+</script>
+</h2>
+<h2>Select Phone Brand:</h2>
+<h2><select id="phone-brand" name="phone-brand">
+  <option value="iPhone">iPhone</option>
+  <option value="Samsung">Samsung</option>
+  <option value="GooglePixels">Google Pixels</option>
+  <option value="Realme">Realme</option>
+  <option value="Redmi">Redmi</option>
+  <option value="poco">poco</option>
+  <!-- Add more options for other phone brands -->
+</h2>
+</select>
+
+<h2>Select Phone Model:</h2>
+<h2><select id="phone-model" name="phone-model"></h2>
+  <!-- Options will be populated dynamically based on the selected brand -->
+</select>
+<h2>
+
+<div id="phone-model-list">
+    <ul id="phone-models"></h2>
+    <!-- This list will be populated dynamically based on the selected brand -->
+  </ul>
+</div>
+<style>
+  h2{
+    color: bisque;
+  font-size: larger;
+  text-align: justify;
+  text-indent: 40px;
+  letter-spacing: 3px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+</style>
+<script>
+  // Phone models data
+ 
+  const phoneModels = {
+ iPhone: ["iPhone 15 Pro Max", "iPhone 15 Pro", "iPhone 15","iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14","iPhone 13 Pro Max", "iPhone 13 Pro", 
+    "iPhone 13", "iPhone 12 Pro Max", "iPhone 12 Pro", "iPhone 12", "iPhone 11 Pro Max", "iPhone 11 Pro", "iPhone 11",],
+    Samsung: ["Samsung Galaxy S21 Ultra", "Samsung Galaxy S21 Plus","Samsung Galaxy S21","Samsung Galaxy Note 20 Ultra",
+    "Samsung Galaxy Note 20","Samsung Galaxy S20 Ultra",
+"Samsung Galaxy S20 Plus",
+"Samsung Galaxy S20",
+"Samsung Galaxy Note 10 Plus",
+"Samsung Galaxy Note 10",
+"Samsung Galaxy Fold",
+"Samsung Galaxy Z Flip",
+"Samsung Galaxy A72",
+"Samsung Galaxy A52",
+"Samsung Galaxy A32",
+"Samsung Galaxy A12",
+"Samsung Galaxy A02s"],
+    GooglePixels:["Google Pixel 6 Pro", "Google Pixel 6", "Google Pixel 5a", "Google Pixel 5","Google Pixel 4a",
+"Google Pixel 4a",
+"Google Pixel 4 XL",
+"Google Pixel 4",
+"Google Pixel 3a XL",
+"Google Pixel 3a",
+"Google Pixel 3 XL",
+"Google Pixel 3"],
+
+Realme:["Realme GT 2 Pro", 
+"Realme GT 2",
+"Realme GT Neo 3",
+"Realme GT Neo 2",
+"Realme GT Master Edition",
+"Realme GT",
+"Realme 9 Pro+",
+"Realme 9 Pro",
+"Realme 9i",
+"Realme 9",
+"Realme 8s",
+"Realme 8i",
+"Realme 8 Pro",
+"Realme 8",
+"Realme Narzo 50",
+"Realme Narzo 50i",
+"Realme Narzo 50A",
+"Realme  Narzo 40",
+"Realme Narzo 30A",
+"Realme Narzo 30 Pro"],
+
+Redmi: ["Redmi Note 11 Pro",
+"Redmi Note 11",
+"Redmi Note 11S",
+"Redmi Note 10 Pro Max",
+"Redmi Note 10 Pro",
+"Redmi Note 10S",
+"Redmi Note 10 5G",
+"Redmi Note 10",
+"Redmi 10 Prime",
+"Redmi 10",
+"Redmi 9 Power",
+"Redmi 9T",
+"Redmi 9C",
+"Redmi 9",
+"Redmi 9A",
+"Redmi Note 9 Pro Max",
+"Redmi Note 9 Pro",
+"Redmi Note 9S",
+"Redmi Note 9",
+"Redmi Note 8 Pro"],
+    // Add more phone models for other brands
+    
+  };
+  
+  // Function to populate phone models based on selected brand
+  function populatePhoneModels() {
+    const brandSelect = document.getElementById("phone-brand");
+    const modelSelect = document.getElementById("phone-model");
+    const selectedBrand = brandSelect.value;
+    
+    // Clear previous options
+    modelSelect.innerHTML = "";
+
+    // Populate options based on selected brand
+    phoneModels[selectedBrand].forEach(model => {
+      const option = document.createElement("option");
+      option.text = model;
+      modelSelect.add(option);
+    });
+  }
+
+  // Event listener for brand select change
+  document.getElementById("phone-brand").addEventListener("change", populatePhoneModels);
+
+  // Initial population of phone models
+  populatePhoneModels();
+
+  // Function to change font style based on user selection
+  document.getElementById('fontSelect').addEventListener('change', function() {
+      var selectedFont = this.value;
+      document.getElementById('sampleText').className = selectedFont;
+      document.getElementById('custom-text').style.fontFamily = getComputedStyle(document.getElementById('sampleText')).fontFamily;
+  });
+</script>
+
+<style>
+  body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+  }
+
+  .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; 
+      overflow: hidden;
+  }
+
+  .bg-video video {
+      object-fit: cover; /* Cover the entire container with the video */
+      width: 100%;
+      height: 100%;
+     filter: brightness(20%);
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-video">
+  <video autoplay muted loop>
+      <source src="C:\Users\hp\Documents\back04.mp4" type="video/mp4">
+      <!-- Add other video sources for compatibility -->
+  </video>
+</div>
+
+
+
+<h2>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" id="fileInput" name="files[]" multiple>
+ 
+    <div id="phone-back-cover">
+      <p id="custom-text">Custom Text</p>
+  </div>
+</h2>
