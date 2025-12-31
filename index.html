@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Case Designer | Pro Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Monoton&family=Orbitron:wght@400;900&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,400;1,700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+       :root {
+    --primary: #8b5cf6; /* Vibrant Violet */
+    --primary-glow: rgba(139, 92, 246, 0.5);
+    --accent: #06b6d4; /* Cyan */
+    --accent-glow: rgba(6, 182, 212, 0.5);
+    --bg-dark: #0f172a;
+    --panel-bg: rgba(30, 41, 59, 0.7);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --primary-teal: #2cb1a5;
+    --orange-btn: #ffb347;
+    --bg-gray: #fdfdfd;
+    --text-dark: #333;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* --- Top Navigation --- */
+.top-nav {
+    height: 70px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 1000;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-icon {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.studio-status {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 70px);
+    position: relative;
+    z-index: 100;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 350px;
+    background: var(--panel-bg);
+    padding: 25px;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+    border-right: 1px solid var(--glass-border);
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+}
+
+.right-sidebar {
+    width: 300px;
+    background: var(--panel-bg);
+    padding: 25px;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+    border-left: 1px solid var(--glass-border);
+}
+
+.sidebar::-webkit-scrollbar, .right-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb, .right-sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+    letter-spacing: -1px;
+}
+
+.sub-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    display: block;
+}
+
+.section {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 20px -10px var(--primary-glow);
+}
+
+h2 {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h2::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-top: 15px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    font-size: 14px;
+    background: rgba(15, 23, 42, 0.6);
+    color: white;
+    margin-top: 8px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+/* Range Inputs */
+input[type="range"] {
+    accent-color: var(--primary);
+    height: 6px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Stickers */
+.sticker-box {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.sticker-item {
+    font-size: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.sticker-item:hover {
+    background: var(--primary-glow);
+    transform: scale(1.1) rotate(5deg);
+    border-color: var(--primary);
+}
+
+/* Row Layout */
+.row {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Material Buttons */
+.btn-toggle {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    flex: 1;
+    transition: 0.3s;
+}
+
+.btn-toggle.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+/* Main Action Button */
+.download-btn {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 800;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    box-shadow: 0 10px 30px -10px var(--primary-glow);
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px -10px var(--primary-glow);
+}
+
+/* --- Preview Area --- */
+.preview-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    position: relative;
+    background: radial-gradient(circle at center, rgba(139, 92, 246, 0.05), transparent);
+}
+
+#capture-target {
+    width: 320px;
+    height: 650px;
+    background-color: #ffffff;
+    border: 12px solid #1a1a1a;
+    border-radius: 54px;
+    box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), 
+                0 0 20px rgba(139, 92, 246, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.camera-island {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 100px;
+    height: 100px;
+    background: #111;
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    gap: 8px;
+    z-index: 10;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.lens {
+    background: radial-gradient(circle at 30% 30%, #333, #000);
+    border-radius: 50%;
+    border: 1px solid #222;
+}
+
+#img-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+#text-layer {
+    position: absolute;
+    top: 50%; left: 0; width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    z-index: 5;
+    cursor: move;
+    user-select: none;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.draggable {
+    position: absolute;
+    z-index: 6;
+    cursor: move;
+}
+
+.gloss-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(255,255,255,0.1) 100%);
+    z-index: 8;
+    pointer-events: none;
+    display: none;
+}
+
+/* Tip styling */
+.preview-area .tip {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    padding: 10px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--glass-border);
+    font-size: 13px;
+}
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.sidebar > .section:nth-of-type(1) { animation-delay: 0.2s; }
+.sidebar > .section:nth-of-type(2) { animation-delay: 0.3s; }
+.sidebar > .section:nth-of-type(3) { animation-delay: 0.4s; }
+.sidebar > .section:nth-of-type(4) { animation-delay: 0.5s; }
+.sidebar > .section:nth-of-type(5) { animation-delay: 0.6s; }
+
+.right-sidebar > .section:nth-of-type(1) { animation-delay: 0.2s; }
+.right-sidebar > .section:nth-of-type(2) { animation-delay: 0.3s; }
+.right-sidebar > .section:nth-of-type(3) { animation-delay: 0.4s; }
+
+@keyframes fadeInSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Cart Section --- */
+.cart-container {
+    background: var(--bg-gray);
+    color: var(--text-dark);
+    padding: 50px 0;
+    display: none;
+    min-height: calc(100vh - 70px);
+}
+
+.cart-grid {
+    max-width: 1100px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.preview-section {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.edit-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.phone-mockup {
+    width: 280px;
+    height: 560px;
+    margin: 0 auto;
+    border: 12px solid #111;
+    border-radius: 40px;
+    background: #eee; /* This is where the user's design would show */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.product-info h1 {
+    font-size: 28px;
+    margin: 0;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    background: none;
+    -webkit-text-fill-color: initial;
+}
+
+.price-row {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.current-price { font-size: 32px; color: var(--primary-teal); font-weight: bold; }
+.old-price { text-decoration: line-through; color: #999; font-size: 18px; }
+
+.material-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.mat-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    color: var(--text-dark);
+}
+
+.mat-card.active {
+    border-color: var(--primary-teal);
+    background: #f0f9f8;
+}
+
+.scarcity-text {
+    color: #e67e22;
+    font-size: 14px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.qty-row { display: flex; gap: 10px; margin-bottom: 20px; }
+
+.add-cart-btn {
+    background: var(--orange-btn);
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pincode-box {
+    background: #e9f7f6;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    color: var(--text-dark);
+}
+
+.coupon-section {
+    margin: 20px 0;
+}
+
+.coupon-msg {
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.pincode-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-radius: 4px;
+    background: white;
+    color: var(--text-dark);
+}
+
+.check-btn {
+    background: var(--primary-teal);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+footer {
+    background: white;
+    border-top: 1px solid #eee;
+    padding: 50px 0;
+    margin-top: 50px;
+    color: var(--text-dark);
+}
+
+.footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.footer-col h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+    color: var(--text-dark);
+}
+
+.footer-col h3::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -5px;
+    width: 40px; height: 2px; background: #000;
+}
+
+.footer-col ul { list-style: none; padding: 0; }
+.footer-col li { margin-bottom: 10px; color: #444; font-size: 14px; cursor: pointer; }
+
+.social-row { text-align: center; padding-bottom: 30px; font-weight: bold; font-size: 20px; color: var(--text-dark); }
+
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+    <header class="top-nav">
+        <div class="logo-area">
+            <div class="logo-icon">B</div>
+            <div style="display: flex; flex-direction: column;">
+                <span style="font-weight: 800; font-size: 18px; letter-spacing: 1px; color: var(--text-main);">BESPOKE STUDIO</span>
+                <span style="font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 2px;">PREMIUM EDITION v2.0</span>
+            </div>
+        </div>
+        <div class="studio-status">
+            <div class="status-item">
+                <div class="indicator"></div>
+                LIVE PREVIEW
+            </div>
+            <div class="status-item" style="opacity: 0.6;">
+                GPU ACCELERATED
+            </div>
+            <div class="status-item">
+                <button class="download-btn" style="margin:0; padding: 10px 20px; font-size: 12px; height: auto;" onclick="goToCheckout()">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="sidebar">
+        <h1>CASE DESIGNER</h1>
+        <span class="sub-text">Next-Gen Customization Studio</span>
+
+        <div class="section">
+            <h2>1. Device & Color</h2>
+            <select id="brand" onchange="loadModels()">
+                <option value="iPhone">Apple iPhone</option>
+                <option value="Samsung">Samsung Galaxy</option>
+                <option value="Pixel">Google Pixel</option>
+                <option value="OnePlus">OnePlus</option>
+            </select>
+            <select id="model"></select>
+            <label>Case Base Color</label>
+            <input type="color" id="baseColor" value="#ffffff">
+        </div>
+
+        <div class="section">
+            <h2>2. Photo & Layout</h2>
+            <input type="file" id="upload" accept="image/*">
+            <div class="row">
+                <div style="flex:1">
+                    <label>Zoom</label>
+                    <input type="range" id="zoom" min="0.5" max="3" step="0.1" value="1">
+                </div>
+                <div style="flex:1">
+                    <label>Rotate</label>
+                    <input type="range" id="rotate" min="0" max="360" value="0">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Text Stylist</h2>
+            <input type="text" id="textInput" placeholder="Enter your text...">
+            <div class="row">
+                <input type="color" id="textColor" value="#000000">
+                <select id="fontFamily">
+                    <option value="Arial">Default Sans</option>
+                    <option value="'Orbitron', sans-serif">Futuristic</option>
+                    <option value="'Bungee', cursive">Bold Display</option>
+                    <option value="'Permanent Marker', cursive">Handwritten</option>
+                    <option value="'Monoton', cursive">Retro Neon</option>
+                    <option value="'Playfair Display', serif">Elegant Serif</option>
+                    <option value="'Roboto Mono', monospace">Tech Mono</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. Add Stickers</h2>
+            <div class="sticker-box">
+                <div class="sticker-item" onclick="addEmoji('❤️')">❤️</div>
+                <div class="sticker-item" onclick="addEmoji('🔥')">🔥</div>
+                <div class="sticker-item" onclick="addEmoji('✨')">✨</div>
+                <div class="sticker-item" onclick="addEmoji('😎')">😎</div>
+                <div class="sticker-item" onclick="addEmoji('👑')">👑</div>
+                <div class="sticker-item" onclick="addEmoji('⭐')">⭐</div>
+                <div class="sticker-item" onclick="addEmoji('🍕')">🍕</div>
+                <div class="sticker-item" onclick="addEmoji('🌈')">🌈</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. Material Finish</h2>
+            <div class="row">
+                <button class="btn-toggle active" id="matte">Matte</button>
+                <button class="btn-toggle" id="gloss">Glossy</button>
+            </div>
+        </div>
+
+        <button class="download-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+    </div>
+
+    <div class="preview-area">
+        <div id="capture-target">
+            <div class="camera-island">
+                <div class="lens"></div><div class="lens"></div>
+                <div class="lens"></div><div class="lens" style="width:10px; height:10px; margin:auto; background:#444;"></div>
+            </div>
+            
+            <div id="img-layer"></div>
+            <div id="text-layer" class="draggable">TYPE HERE</div>
+            <div class="gloss-overlay" id="glossLayer"></div>
+        </div>
+        <div class="tip">Drag text and stickers to reposition them</div>
+    </div>
+
+    <div class="right-sidebar">
+        <h1>EFFECTS</h1>
+        <span class="sub-text">Fine-tune your design</span>
+
+        <div class="section">
+            <h2>6. Image Filters</h2>
+            <label>Brightness</label>
+            <input type="range" id="brightness" min="0" max="200" value="100">
+            <label>Contrast</label>
+            <input type="range" id="contrast" min="0" max="200" value="100">
+            <label>Grayscale</label>
+            <input type="range" id="grayscale" min="0" max="100" value="0">
+            <label>Hue Rotate</label>
+            <input type="range" id="hue" min="0" max="360" value="0">
+        </div>
+
+        <div class="section">
+            <h2>7. Text Effects</h2>
+            <label>Text Size</label>
+            <input type="range" id="textSize" min="10" max="100" value="30">
+            <label>Letter Spacing</label>
+            <input type="range" id="letterSpacing" min="-5" max="20" value="0">
+            <label>Text Shadow</label>
+            <input type="range" id="textShadow" min="0" max="20" value="0">
+        </div>
+
+        <div class="section">
+            <h2>8. Templates</h2>
+            <div class="row">
+                <button class="btn-toggle" onclick="applyTemplate('neon')">Neon Night</button>
+                <button class="btn-toggle" onclick="applyTemplate('retro')">Retro Vibe</button>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <button class="btn-toggle" onclick="applyTemplate('minimal')">Minimal</button>
+                <button class="btn-toggle" onclick="applyTemplate('cyber')">Cyberpunk</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="cart-container" id="cart-section">
+        <div class="cart-grid">
+            <div class="preview-section">
+                <button class="edit-btn" onclick="goToDesigner()">✎ Edit Again</button>
+                <div class="phone-mockup" id="finalPreview">
+                    </div>
+                <div style="margin-top: 20px;">
+                    <button style="background:none; border:none; color:#666; cursor:pointer;" onclick="shareDesign()">Share Design</button> | 
+                    <button style="background:none; border:none; color:#666; cursor:pointer;">View Reviews</button>
+                </div>
+            </div>
+        
+            <div class="product-info">
+                <h1>Custom Glass Case</h1>
+                
+                <div class="price-row">
+                    <span class="old-price">₹999</span>
+                    <span class="current-price" id="priceDisplay">₹499</span>
+                    <span style="color:#2ecc71; font-size:12px;">Free Shipping</span>
+                </div>
+        
+                <label><b>Choose Case Material:</b></label>
+                <div class="material-selector">
+                    <div class="mat-card active" onclick="updateMaterial('Glass', 499, this)">
+                        <b>Glass</b><br><small>Premium Feel</small>
+                    </div>
+                    <div class="mat-card" onclick="updateMaterial('Soft', 399, this)">
+                        <b>Soft</b><br><small>Silicon Base</small>
+                    </div>
+                    <div class="mat-card" onclick="updateMaterial('Plastic', 299, this)">
+                        <b>Hard Plastic</b><br><small>Lightweight</small>
+                    </div>
+                </div>
+        
+                <div class="scarcity-text">
+                    🔥 Hurry! Only 6 items left!
+                </div>
+
+                <div class="coupon-section">
+                    <label style="margin-bottom: 5px; display:block;">Discount Coupon</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="couponInput" placeholder="Enter code (e.g. BESPOKE20)" style="margin:0; flex:1;">
+                        <button class="check-btn" style="background: var(--text-dark);" onclick="applyCoupon()">Apply</button>
+                    </div>
+                    <small id="couponMessage" class="coupon-msg"></small>
+                </div>
+        
+                <div class="qty-row">
+                    <select id="qtySelect" onchange="updatePrice()" style="padding:10px; border-radius:5px; border:1px solid #ddd;">
+                        <option value="1">Qty: 1</option>
+                        <option value="2">Qty: 2</option>
+                        <option value="3">Qty: 3</option>
+                        <option value="4">Qty: 4</option>
+                        <option value="5">Qty: 5</option>
+                        <option value="6">Qty: 6</option>
+                        <option value="7">Qty: 7</option>
+                        <option value="8">Qty: 8</option>
+                        <option value="9">Qty: 9</option>
+                        <option value="10">Qty: 10</option>
+                    </select>
+                    <button class="add-cart-btn" onclick="addToCart()">
+                        🛒 ADD TO CART
+                    </button>
+                </div>
+                <button class="add-cart-btn" style="background: #8b5cf6; margin-bottom: 20px;" onclick="startPayment()">
+                    ⚡ PAY NOW
+                </button>
+        
+                <div class="pincode-box">
+                    <b>Check Delivery</b><br>
+                    <small style="color:#666;">Enter pincode to check availability</small><br><br>
+                    <input type="text" placeholder="Enter Pincode" id="pincodeInput">
+                    <button class="check-btn" onclick="checkPincode()">Check</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-row">
+            FOLLOW US: <span style="font-size:24px;">📸 📘 📺 𝕏</span>
+        </div>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>COMPANY</h3>
+                <ul><li>About Us</li><li>T&C's</li><li>Refer & Earn</li></ul>
+            </div>
+            <div class="footer-col">
+                <h3>BEST SELLERS</h3>
+                <ul><li>Wall Photo Frames</li><li>Photo Stands</li><li>Mobile Cases</li><li>Photo Mugs</li></ul>
+            </div>
+            <div class="footer-col">
+                <h3>SUPPORT</h3>
+                <ul><li>Contact Us</li><li>Track Order</li><li>Return Order</li><li>FAQ's</li></ul>
+            </div>
+            <div class="footer-col">
+                <h3>MORE INFO</h3>
+                <ul><li>My Account</li><li>Order History</li><li>Your Credits</li></ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Device Data ---
+        const deviceData = {
+            iPhone: {
+                "iPhone 15 Pro Max": { lenses: 3, style: "pro" },
+                "iPhone 15": { lenses: 2, style: "standard" },
+                "iPhone 14": { lenses: 2, style: "standard" },
+                "iPhone 13": { lenses: 2, style: "standard" },
+                "iPhone 12": { lenses: 2, style: "standard" }
+            },
+            Samsung: {
+                "S24 Ultra": { lenses: 4, style: "ultra" },
+                "S23+": { lenses: 3, style: "vertical" },
+                "A54": { lenses: 3, style: "vertical" },
+                "Note 20": { lenses: 3, style: "vertical" },
+                "S22": { lenses: 3, style: "vertical" }
+            },
+            Pixel: {
+                "Pixel 8 Pro": { lenses: 3, style: "pixel-bar" },
+                "Pixel 8": { lenses: 2, style: "pixel-bar" },
+                "Pixel 7": { lenses: 2, style: "pixel-bar" }
+            },
+            OnePlus: {
+                "OnePlus 12": { lenses: 4, style: "circular" },
+                "OnePlus 11": { lenses: 3, style: "circular" },
+                "OnePlus 10 Pro": { lenses: 3, style: "standard" }
+            }
+        };
+
+        function loadModels() {
+            const b = document.getElementById('brand').value;
+            const modelSelect = document.getElementById('model');
+            modelSelect.innerHTML = Object.keys(deviceData[b]).map(m => `<option>${m}</option>`).join('');
+            updateCameraLayout();
+        }
+
+        function updateCameraLayout() {
+            const b = document.getElementById('brand').value;
+            const m = document.getElementById('model').value;
+            if (!deviceData[b] || !deviceData[b][m]) return;
+            const config = deviceData[b][m];
+            const island = document.querySelector('.camera-island');
+            
+            let lensHTML = '';
+            for(let i=0; i<config.lenses; i++) {
+                lensHTML += '<div class="lens"></div>';
+            }
+            
+            island.style.borderRadius = "24px";
+            if(config.style === "pro") {
+                island.style.gridTemplateColumns = "1fr 1fr";
+                island.style.width = "100px";
+                island.style.height = "100px";
+            } else if(config.style === "standard") {
+                island.style.gridTemplateColumns = "1fr";
+                island.style.width = "60px";
+                island.style.height = "110px";
+            } else if(config.style === "ultra") {
+                island.style.gridTemplateColumns = "1fr 1fr";
+                island.style.width = "110px";
+                island.style.height = "150px";
+            } else if(config.style === "vertical") {
+                island.style.gridTemplateColumns = "1fr";
+                island.style.width = "50px";
+                island.style.height = "140px";
+            } else if(config.style === "pixel-bar") {
+                island.style.gridTemplateColumns = "1fr 1fr 1fr";
+                island.style.width = "280px";
+                island.style.height = "60px";
+                island.style.left = "20px";
+                island.style.borderRadius = "30px";
+            } else if(config.style === "circular") {
+                island.style.gridTemplateColumns = "1fr 1fr";
+                island.style.width = "120px";
+                island.style.height = "120px";
+                island.style.borderRadius = "50%";
+            }
+            
+            island.innerHTML = lensHTML;
+        }
+
+        document.getElementById('model').addEventListener('change', updateCameraLayout);
+
+        // --- Filters & Effects ---
+        const brightness = document.getElementById('brightness');
+        const contrast = document.getElementById('contrast');
+        const grayscale = document.getElementById('grayscale');
+        const hue = document.getElementById('hue');
+
+        function applyFilters() {
+            imgLayer.style.filter = `brightness(${brightness.value}%) contrast(${contrast.value}%) grayscale(${grayscale.value}%) hue-rotate(${hue.value}deg)`;
+        }
+
+        [brightness, contrast, grayscale, hue].forEach(el => el.oninput = applyFilters);
+
+        const textSize = document.getElementById('textSize');
+        const letterSpacing = document.getElementById('letterSpacing');
+        const textShadow = document.getElementById('textShadow');
+
+        function applyTextEffects() {
+            textLayer.style.fontSize = textSize.value + 'px';
+            textLayer.style.letterSpacing = letterSpacing.value + 'px';
+            textLayer.style.textShadow = `0 ${textShadow.value/2}px ${textShadow.value}px rgba(0,0,0,0.5)`;
+        }
+
+        [textSize, letterSpacing, textShadow].forEach(el => el.oninput = applyTextEffects);
+
+        function applyTemplate(type) {
+            const target = document.getElementById('capture-target');
+            if(type === 'neon') {
+                target.style.backgroundColor = '#000000';
+                textLayer.style.color = '#ff00ff';
+                textLayer.style.fontFamily = "'Monoton', cursive";
+                textLayer.style.textShadow = '0 0 10px #ff00ff, 0 0 20px #ff00ff';
+            } else if(type === 'retro') {
+                target.style.backgroundColor = '#f4e4bc';
+                textLayer.style.color = '#d35400';
+                textLayer.style.fontFamily = "'Permanent Marker', cursive";
+            } else if(type === 'minimal') {
+                target.style.backgroundColor = '#ffffff';
+                textLayer.style.color = '#333333';
+                textLayer.style.fontFamily = 'Arial';
+            } else if(type === 'cyber') {
+                target.style.backgroundColor = '#0a0a0a';
+                textLayer.style.color = '#00ffff';
+                textLayer.style.fontFamily = "'Orbitron', sans-serif";
+                textLayer.style.textShadow = '0 0 5px #00ffff';
+            }
+        }
+
+        // --- Photo Transform ---
+        const imgLayer = document.getElementById('img-layer');
+        const zoom = document.getElementById('zoom');
+        const rotate = document.getElementById('rotate');
+
+        function updateImg() {
+            imgLayer.style.transform = `scale(${zoom.value}) rotate(${rotate.value}deg)`;
+        }
+
+        document.getElementById('upload').addEventListener('change', function(e) {
+            const reader = new FileReader();
+            reader.onload = (f) => imgLayer.style.backgroundImage = `url(${f.target.result})`;
+            reader.readAsDataURL(e.target.files[0]);
+        });
+
+        zoom.oninput = updateImg;
+        rotate.oninput = updateImg;
+
+        // --- Text & Base Color ---
+        const textLayer = document.getElementById('text-layer');
+        document.getElementById('textInput').oninput = (e) => textLayer.innerText = e.target.value || "TYPE HERE";
+        document.getElementById('textColor').oninput = (e) => textLayer.style.color = e.target.value;
+        document.getElementById('fontFamily').onchange = (e) => textLayer.style.fontFamily = e.target.value;
+        document.getElementById('baseColor').oninput = (e) => document.getElementById('capture-target').style.backgroundColor = e.target.value;
+
+        // --- Universal Draggable Function ---
+        function makeDraggable(el) {
+            let active = false;
+            let currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
+
+            el.addEventListener("mousedown", dragStart);
+            el.addEventListener("touchstart", dragStart, {passive: false});
+            document.addEventListener("mouseup", dragEnd);
+            document.addEventListener("touchend", dragEnd);
+            document.addEventListener("mousemove", drag);
+            document.addEventListener("touchmove", drag, {passive: false});
+
+            function dragStart(e) {
+                if (e.type === "touchstart") {
+                    initialX = e.touches[0].clientX - xOffset;
+                    initialY = e.touches[0].clientY - yOffset;
+                } else {
+                    initialX = e.clientX - xOffset;
+                    initialY = e.clientY - yOffset;
+                }
+                if (e.target === el) active = true;
+            }
+
+            function dragEnd() { active = false; }
+
+            function drag(e) {
+                if (active) {
+                    e.preventDefault();
+                    if (e.type === "touchmove") {
+                        currentX = e.touches[0].clientX - initialX;
+                        currentY = e.touches[0].clientY - initialY;
+                    } else {
+                        currentX = e.clientX - initialX;
+                        currentY = e.clientY - initialY;
+                    }
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    el.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                }
+            }
+        }
+        makeDraggable(textLayer);
+
+        // --- Stickers ---
+        function addEmoji(emoji) {
+            const s = document.createElement('div');
+            s.className = 'draggable';
+            s.style.fontSize = '40px';
+            s.style.left = '40%'; s.style.top = '30%';
+            s.innerText = emoji;
+            document.getElementById('capture-target').appendChild(s);
+            makeDraggable(s);
+        }
+
+        // --- Finish Toggle ---
+        const gLayer = document.getElementById('glossLayer');
+        document.getElementById('gloss').onclick = function() {
+            gLayer.style.display = 'block';
+            this.classList.add('active');
+            document.getElementById('matte').classList.remove('active');
+        };
+        document.getElementById('matte').onclick = function() {
+            gLayer.style.display = 'none';
+            this.classList.add('active');
+            document.getElementById('gloss').classList.remove('active');
+        };
+
+        // --- Final Export ---
+        function exportDesign() {
+            html2canvas(document.getElementById('capture-target'), {useCORS: true}).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'my-custom-case.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        loadModels();
+
+        // --- Cart Functions ---
+        let currentPrice = 499;
+        let basePrice = 499;
+        let discountFactor = 1;
+
+        function updateMaterial(type, price, element) {
+            basePrice = price;
+            updatePrice();
+            document.getElementById('productTitle').innerText = `Custom ${type} Case`;
+            document.querySelectorAll('.mat-card').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
+
+            // Visual update for material on the preview
+            const overlay = document.getElementById('material-overlay');
+            if(overlay) {
+                if(type === 'Glass') {
+                    overlay.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)';
+                    overlay.style.backdropFilter = 'none';
+                } else if(type === 'Soft') {
+                    overlay.style.background = 'rgba(255,255,255,0.05)';
+                    overlay.style.backdropFilter = 'blur(2px) contrast(0.9)';
+                } else {
+                    overlay.style.background = 'none';
+                    overlay.style.backdropFilter = 'none';
+                }
+            }
+        }
+
+        function updatePrice() {
+            const qty = parseInt(document.getElementById('qtySelect').value);
+            currentPrice = Math.round(basePrice * qty * discountFactor);
+            document.getElementById('priceDisplay').innerText = `₹${currentPrice}`;
+        }
+
+        function applyCoupon() {
+            const code = document.getElementById('couponInput').value.trim().toUpperCase();
+            const msg = document.getElementById('couponMessage');
+            
+            if(code === 'BESPOKE20') {
+                discountFactor = 0.8;
+                msg.style.color = '#2ecc71';
+                msg.innerText = '✓ 20% Discount Applied!';
+            } else {
+                discountFactor = 1;
+                msg.style.color = '#e74c3c';
+                msg.innerText = 'Invalid Coupon Code';
+            }
+            updatePrice();
+        }
+
+        function addToCart() {
+            const btn = document.querySelector('.add-cart-btn');
+            btn.innerHTML = "✓ ADDED";
+            btn.style.background = "#2ecc71";
+            setTimeout(() => {
+                alert("Item added to cart successfully!");
+                btn.innerHTML = "🛒 ADD TO CART";
+                btn.style.background = "var(--orange-btn)";
+            }, 500);
+        }
+
+        function startPayment() {
+            var options = {
+                "key": "rzp_test_1234567890", // Replace with your actual Razorpay Key ID
+                "amount": currentPrice * 100, // Amount in paise
+                "currency": "INR",
+                "name": "Bespoke Studio",
+                "description": "Custom Case Purchase",
+                "image": "https://cdn-icons-png.flaticon.com/512/4403/4403548.png",
+                "handler": function (response){
+                    alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+                },
+                "prefill": {
+                    "name": "Guest User",
+                    "email": "guest@example.com",
+                    "contact": "9999999999"
+                },
+                "theme": {
+                    "color": "#8b5cf6"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+
+        function checkPincode() {
+            const pin = document.getElementById('pincodeInput').value;
+            const btn = document.querySelector('.check-btn');
+            if(pin.length === 6 && !isNaN(pin)) {
+                btn.innerText = "✓ Available";
+                btn.style.background = "#2ecc71";
+            } else {
+                alert("Please enter a valid 6-digit pincode");
+            }
+        }
+
+        function goToCheckout() {
+            html2canvas(document.getElementById('capture-target'), {useCORS: true}).then(canvas => {
+                const finalPreview = document.getElementById('finalPreview');
+                finalPreview.innerHTML = '';
+                
+                // Create container for image and overlay
+                const container = document.createElement('div');
+                container.style.position = 'relative';
+                container.style.width = '100%';
+                container.style.height = '100%';
+
+                const img = new Image();
+                img.src = canvas.toDataURL();
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                
+                // Create material overlay
+                const overlay = document.createElement('div');
+                overlay.id = 'material-overlay';
+                overlay.style.position = 'absolute';
+                overlay.style.top = '0'; overlay.style.left = '0';
+                overlay.style.width = '100%'; overlay.style.height = '100%';
+                overlay.style.pointerEvents = 'none';
+                // Default Glass Effect
+                overlay.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)';
+
+                container.appendChild(img);
+                container.appendChild(overlay);
+                finalPreview.appendChild(container);
+                
+                document.querySelector('.main-container').style.display = 'none';
+                document.getElementById('cart-section').style.display = 'block';
+                window.scrollTo(0,0);
+                history.pushState({view: 'checkout'}, 'Checkout', '#checkout');
+            });
+        }
+
+        function goToDesigner() {
+            document.querySelector('.main-container').style.display = 'flex';
+            document.getElementById('cart-section').style.display = 'none';
+            window.scrollTo(0,0);
+            history.pushState({view: 'designer'}, 'Designer', '#designer');
+        }
+
+        // --- Share Design Logic ---
+        function shareDesign() {
+            const state = {
+                brand: document.getElementById('brand').value,
+                model: document.getElementById('model').value,
+                baseColor: document.getElementById('baseColor').value,
+                text: document.getElementById('textInput').value,
+                textColor: document.getElementById('textColor').value,
+                font: document.getElementById('fontFamily').value,
+                zoom: document.getElementById('zoom').value,
+                rotate: document.getElementById('rotate').value,
+                brightness: document.getElementById('brightness').value,
+                contrast: document.getElementById('contrast').value,
+                grayscale: document.getElementById('grayscale').value,
+                hue: document.getElementById('hue').value,
+                textSize: document.getElementById('textSize').value,
+                letterSpacing: document.getElementById('letterSpacing').value,
+                textShadow: document.getElementById('textShadow').value,
+                finish: document.getElementById('gloss').classList.contains('active') ? 'gloss' : 'matte'
+            };
+
+            // Serialize stickers and text position
+            const stickers = [];
+            document.querySelectorAll('#capture-target .draggable').forEach(el => {
+                if(el.id !== 'text-layer') {
+                    stickers.push({ text: el.innerText, transform: el.style.transform });
+                } else {
+                    state.textPos = el.style.transform;
+                }
+            });
+            state.stickers = stickers;
+
+            const serialized = btoa(JSON.stringify(state));
+            const url = window.location.protocol + '//' + window.location.host + window.location.pathname + '?design=' + serialized;
+
+            navigator.clipboard.writeText(url).then(() => {
+                alert("Unique Design Link Copied to Clipboard!\n(Note: Local images are not shared)");
+            }).catch(err => {
+                prompt("Copy this link:", url);
+            });
+        }
+
+        function loadSharedDesign() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('design')) {
+                try {
+                    const state = JSON.parse(atob(params.get('design')));
+                    
+                    document.getElementById('brand').value = state.brand;
+                    loadModels(); 
+                    document.getElementById('model').value = state.model;
+                    updateCameraLayout();
+
+                    document.getElementById('baseColor').value = state.baseColor;
+                    document.getElementById('capture-target').style.backgroundColor = state.baseColor;
+
+                    document.getElementById('textInput').value = state.text;
+                    document.getElementById('text-layer').innerText = state.text || "TYPE HERE";
+                    document.getElementById('textColor').value = state.textColor;
+                    document.getElementById('text-layer').style.color = state.textColor;
+                    document.getElementById('fontFamily').value = state.font;
+                    document.getElementById('text-layer').style.fontFamily = state.font;
+
+                    const setSlider = (id, val) => {
+                        const el = document.getElementById(id);
+                        if(el) { el.value = val; el.dispatchEvent(new Event('input')); }
+                    };
+                    ['zoom','rotate','brightness','contrast','grayscale','hue','textSize','letterSpacing','textShadow'].forEach(k => setSlider(k, state[k]));
+
+                    if(state.textPos) document.getElementById('text-layer').style.transform = state.textPos;
+                    state.finish === 'gloss' ? document.getElementById('gloss').click() : document.getElementById('matte').click();
+
+                    if(state.stickers) {
+                        state.stickers.forEach(s => {
+                            const el = document.createElement('div');
+                            el.className = 'draggable';
+                            el.style.fontSize = '40px';
+                            el.style.position = 'absolute'; el.style.left = '40%'; el.style.top = '30%';
+                            el.innerText = s.text;
+                            el.style.transform = s.transform;
+                            document.getElementById('capture-target').appendChild(el);
+                            makeDraggable(el);
+                        });
+                    }
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                } catch (e) { console.error("Load failed", e); }
+            }
+        }
+        
+        loadSharedDesign();
+
+        // Handle Back Button
+        window.onpopstate = function(event) {
+            if(event.state && event.state.view === 'checkout') {
+                document.querySelector('.main-container').style.display = 'none';
+                document.getElementById('cart-section').style.display = 'block';
+            } else {
+                document.querySelector('.main-container').style.display = 'flex';
+                document.getElementById('cart-section').style.display = 'none';
+            }
+        };
+    </script>
+    <script>
+        // --- Futuristic Particle Background ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray;
+
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = 'rgba(139, 92, 246, 0.2)';
+                ctx.fill();
+            }
+            update() {
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 0.4) - 0.2;
+                let directionY = (Math.random() * 0.4) - 0.2;
+                let color = 'rgba(139, 92, 246, 0.2)';
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = innerWidth;
+            canvas.height = innerHeight;
+            initParticles();
+        });
+
+        // --- 3D Tilt Effect ---
+        const previewArea = document.querySelector('.preview-area');
+        const captureTarget = document.getElementById('capture-target');
+
+        previewArea.addEventListener('mousemove', (e) => {
+            const { offsetWidth: width, offsetHeight: height } = previewArea;
+            const { offsetX: x, offsetY: y } = e;
+
+            const moveX = (x / width - 0.5) * 2; // -1 to 1
+            const moveY = (y / height - 0.5) * 2; // -1 to 1
+
+            const rotateY = moveX * 15;
+            const rotateX = -moveY * 15;
+            
+            captureTarget.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            captureTarget.style.boxShadow = `0 50px 100px -20px rgba(0,0,0,0.5), 0 0 20px rgba(139, 92, 246, 0.2), ${-moveX * 20}px ${-moveY * 20}px 50px -10px var(--accent-glow)`;
+        });
+
+        previewArea.addEventListener('mouseleave', () => {
+            captureTarget.style.transform = 'perspective(1200px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            captureTarget.style.boxShadow = '0 50px 100px -20px rgba(0,0,0,0.5), 0 0 20px rgba(139, 92, 246, 0.2)';
+        });
+    </script>
+</body>
+</html>
