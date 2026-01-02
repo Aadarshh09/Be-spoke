@@ -1023,14 +1023,14 @@ footer {
         zoom.oninput = updateImg;
         rotate.oninput = updateImg;
 
-        // --- Text & Base Color ---
+        //Text & Base Color
         const textLayer = document.getElementById('text-layer');
         document.getElementById('textInput').oninput = (e) => textLayer.innerText = e.target.value || "TYPE HERE";
         document.getElementById('textColor').oninput = (e) => textLayer.style.color = e.target.value;
         document.getElementById('fontFamily').onchange = (e) => textLayer.style.fontFamily = e.target.value;
         document.getElementById('baseColor').oninput = (e) => document.getElementById('capture-target').style.backgroundColor = e.target.value;
 
-        // --- Universal Draggable Function ---
+        // Universal Draggable Function
         function makeDraggable(el) {
             let active = false;
             let currentX, currentY, initialX, initialY, xOffset = 0, yOffset = 0;
@@ -1073,7 +1073,7 @@ footer {
         }
         makeDraggable(textLayer);
 
-        // --- Stickers ---
+        // Stickers
         function addEmoji(emoji) {
             const s = document.createElement('div');
             s.className = 'draggable';
@@ -1084,7 +1084,7 @@ footer {
             makeDraggable(s);
         }
 
-        // --- Finish Toggle ---
+        // Finish Toggle 
         const gLayer = document.getElementById('glossLayer');
         document.getElementById('gloss').onclick = function() {
             gLayer.style.display = 'block';
@@ -1097,7 +1097,7 @@ footer {
             document.getElementById('gloss').classList.remove('active');
         };
 
-        // --- Final Export ---
+        // Final Export
         function exportDesign() {
             html2canvas(document.getElementById('capture-target'), {useCORS: true}).then(canvas => {
                 const link = document.createElement('a');
@@ -1109,7 +1109,7 @@ footer {
 
         loadModels();
 
-        // --- Cart Functions ---
+        // Cart Functions 
         let currentPrice = 499;
         let basePrice = 499;
         let discountFactor = 1;
@@ -1172,8 +1172,8 @@ footer {
 
         function startPayment() {
             var options = {
-                "key": "rzp_test_1234567890", // Replace with your actual Razorpay Key ID
-                "amount": currentPrice * 100, // Amount in paise
+                "key": "rzp_test_1234567890", // Razorpay Key ID
+                "amount": currentPrice * 100, 
                 "currency": "INR",
                 "name": "Bespoke Studio",
                 "description": "Custom Case Purchase",
@@ -1210,7 +1210,6 @@ footer {
                 const finalPreview = document.getElementById('finalPreview');
                 finalPreview.innerHTML = '';
                 
-                // Create container for image and overlay
                 const container = document.createElement('div');
                 container.style.position = 'relative';
                 container.style.width = '100%';
@@ -1222,14 +1221,12 @@ footer {
                 img.style.height = '100%';
                 img.style.objectFit = 'cover';
                 
-                // Create material overlay
                 const overlay = document.createElement('div');
                 overlay.id = 'material-overlay';
                 overlay.style.position = 'absolute';
                 overlay.style.top = '0'; overlay.style.left = '0';
                 overlay.style.width = '100%'; overlay.style.height = '100%';
                 overlay.style.pointerEvents = 'none';
-                // Default Glass Effect
                 overlay.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)';
 
                 container.appendChild(img);
@@ -1250,7 +1247,7 @@ footer {
             history.pushState({view: 'designer'}, 'Designer', '#designer');
         }
 
-        // --- Share Design Logic ---
+        // Share Design Logic
         function shareDesign() {
             const state = {
                 brand: document.getElementById('brand').value,
@@ -1353,7 +1350,7 @@ footer {
         };
     </script>
     <script>
-        // --- Futuristic Particle Background ---
+        // Background 
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -1419,7 +1416,7 @@ footer {
             initParticles();
         });
 
-        // --- 3D Tilt Effect ---
+        //  3D  Effect
         const previewArea = document.querySelector('.preview-area');
         const captureTarget = document.getElementById('capture-target');
 
